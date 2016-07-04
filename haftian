@@ -1,0 +1,42 @@
+#!/bin/bash
+
+set -e
+
+ISO=$1
+TARGET=$2
+TMPDIR=/tmp
+
+if [ ! -d $TARGET ];then
+  echo "$TARGET is not a directory"
+  exit
+fi
+
+if [ ! -f $ISO ];then
+  echo "$ISO is not a file"
+  exit
+fi
+
+
+DATAZIP=`pwd`/data.zip
+if [ ! -f $DATAZIP ];then
+  echo "Haftian boot data files are not found"
+  exit
+fi
+
+MOUNTED_ISO=$TMPDIR/iso
+
+mkdir -p $MOUNTED_ISO $TARGET
+mount -o loop $ISO $MOUNTED_ISO
+
+cp -a $MOUNTED_ISO/* $TARGET
+cp -a $MOUNTED_ISO/.disk $TARGET
+
+pushd $TARGET
+unzip $DATAZIP
+popd
+
+umount $MOUNTED_ISO
+umount $TARGET
+rmdir $MOUNTED_ISO
+
+

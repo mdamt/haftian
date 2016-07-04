@@ -1,0 +1,21 @@
+# H. Aftian
+
+A utility to create a BlankOn UEFI bootable USB.
+
+## Steps
+
+0. Get haftian
+1. Prepare your BlankOn .ISO
+2. Prepare your USB disk (this will be handled later) as GPT with 1 partition, formatted with FAT32 and mount it to somewhere
+3. Run haftian:
+
+```
+cd /where/you/put/haftian/
+sudo ./haftian /where/is/your.iso.file /where/you/mount/your/usb.disk
+```
+
+4. Reboot and try
+
+# LICENSE
+
+haftian is in public domain but it contains files from GRUB which are licensed in GPL3.
