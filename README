@@ -19,3 +19,28 @@ sudo ./haftian /where/is/your.iso.file /where/you/mount/your/usb.disk
 # LICENSE
 
 haftian is in public domain but it contains files from GRUB which are licensed in GPL3.
+
+
+# Tips
+
+This is how I prepare my USB disk. Note that `#` is Linux prompt and `(parted)` is GNU Parted prompt.
+
+```
+# sudo parted /dev/your/usb/device
+
+(parted) mktable gpt
+(parted) mkpart efi fat32 1 -1
+(parted) toggle 1 boot
+(parted) p 
+Model: SanDisk Ultra (scsi)
+Disk /dev/sdb: 8004MB
+Sector size (logical/physical): 512B/512B
+Partition Table: gpt
+Disk Flags: 
+
+Number  Start   End     Size    File system  Name  Flags
+ 1      1049kB  8004MB  8003MB  fat32        efi   boot, esp
+(parted) quit
+# sudo mkfs.vfat -F32 /dev/your/usbdevice1    # <---- Don't forget to put partition number, if your usb disk is in /dev/sdb then this should be mkfs.vfat -F32 /dev/sdb1
+# sudo mount /dev/your/usbdevice1 /mnt
+```
