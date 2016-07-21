@@ -28,7 +28,7 @@ MOUNTED_ISO=$TMPDIR/iso
 mkdir -p $MOUNTED_ISO $TARGET
 mount -o loop $ISO $MOUNTED_ISO
 
-cp -a $MOUNTED_ISO/* $TARGET
+rsync -aL $MOUNTED_ISO/* $TARGET
 cp -a $MOUNTED_ISO/.disk $TARGET
 
 pushd $TARGET
