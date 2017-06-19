@@ -33,6 +33,7 @@ cp -a $MOUNTED_ISO/.disk $TARGET
 
 pushd $TARGET
 unzip $DATAZIP
+echo "insmod all_video" >> boot/grub/grub.cfg
 popd
 
 umount $MOUNTED_ISO
